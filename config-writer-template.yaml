@@ -1,0 +1,22 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterTemplate
+metadata:
+  name: simple-config-writer-template-prod-w04-s061
+spec:
+  ytt: |
+    #@ load("@ytt:data", "data")
+    #@ load("@ytt:json", "json")
+    #@ load("@ytt:base64", "base64")
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: Runnable
+    metadata:
+      name: #@ data.values.workload.metadata.name + "-config-writer"
+    spec:
+      runTemplateRef:
+        name: simple-run-template-prod-w04-s061
+
+      inputs:
+        git_repository: #@ data.values.params.git_repository
+        git_files: #@ data.values.config
+

@@ -1,0 +1,19 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterDelivery
+metadata:
+  name: simple-delivery-prod-w04-s061
+spec:
+  selector:
+    end2end.link/workshop-session: prod-w04-s061
+
+  resources:
+  - name: source-provider
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: simple-delivery-source-template-prod-w04-s061
+  - name: deployer
+    templateRef:
+      kind: ClusterDeploymentTemplate
+      name: simple-app-deploy-prod-w04-s061
+    deployment:
+      resource: source-provider

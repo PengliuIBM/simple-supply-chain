@@ -1,0 +1,13 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: simple-app
+    end2end.link/workshop-session: prod-w04-s061
+  name: simple-app
+spec:
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/tsalm-pivotal/spring-boot-hello-world.git

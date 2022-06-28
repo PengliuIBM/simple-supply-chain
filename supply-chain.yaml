@@ -1,0 +1,50 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterSupplyChain
+metadata:
+  name: simple-supplychain-prod-w04-s061
+spec:
+  selector:
+    end2end.link/workshop-session: prod-w04-s061
+  resources:
+  - name: source-provider
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: simple-source-template-prod-w04-s061
+
+  - name: image-builder
+    templateRef:
+      kind: ClusterImageTemplate
+      name: simple-image-template-prod-w04-s061
+    sources:
+    - name: source
+      resource: source-provider
+    params:
+    - name: registry
+      value:
+        server: harbor.emea.end2end.link
+        repository: tap-wkld
+  - name: app-config
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: simple-config-template-prod-w04-s061
+    images:
+    - resource: image-builder
+      name: image
+  - name: config-writer
+    templateRef:
+      kind: ClusterTemplate
+      name: simple-config-writer-template-prod-w04-s061
+    configs:
+    - resource: app-config
+      name: config
+    params:
+    - name: git_repository
+      value: https://gitea.emea.end2end.link/gitea_admin/prod-w04-s061.git
+  - name: deliverable
+    templateRef:
+      kind: ClusterTemplate
+      name: simple-deliverable-template-prod-w04-s061
+    params:
+    - name: gitops_repository
+      value: https://gitea.emea.end2end.link/gitea_admin/prod-w04-s061.git
+

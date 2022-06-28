@@ -1,0 +1,21 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterTemplate
+metadata:
+  name: simple-deliverable-template-prod-w04-s061
+  labels:
+    app.tanzu.vmware.com/deliverable-type: web
+spec:
+  template:
+    apiVersion: carto.run/v1alpha1
+    kind: Deliverable
+    metadata:
+      name: $(workload.metadata.name)$
+      labels:
+        end2end.link/workshop-session: prod-w04-s061
+    spec:
+      params:
+      source:
+        git:
+          url: $(params.gitops_repository)$
+          ref:
+            branch: main
