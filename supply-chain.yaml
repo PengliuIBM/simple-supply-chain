@@ -21,7 +21,7 @@ spec:
     params:
     - name: registry
       value:
-        #server: harbor.emea.end2end.link
+        # server: harbor.emea.end2end.link
         server: us-docker.pkg.dev/cnr-demo/gcr.io
         repository: tap-wkld
   - name: app-config
